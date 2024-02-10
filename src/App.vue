@@ -1,7 +1,7 @@
 <template>
   <div class="flex">
     <background-container class="w-2/5"/>
-    <main-content class="bg-zinc-800 w-3/5"/>
+    <main-content class="bg-zinc-800 w-3/5 px-20 py-10"/>
   </div>
 </template>
 <script>
