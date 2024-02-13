@@ -1,7 +1,7 @@
 <template>
-  <div class="flex">
-    <background-container class="w-2/5"/>
-    <main-content class="bg-zinc-800 w-3/5 px-20 py-10"/>
+  <div class="flex flex-col md:flex-row">
+    <background-container class="w-full md:w-2/5"/>
+    <main-content class="w-full md:w-3/5"/>
   </div>
 </template>
 <script>

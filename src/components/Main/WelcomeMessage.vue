@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p v-html="message" class="text-white text-3xl"></p>
+    <p v-html="message" class="text-white text-lg px-4 md:text-3xl md:px-20 pt-10"></p>
   </div>
 </template>
 
