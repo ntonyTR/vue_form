@@ -17,7 +17,6 @@
         'p-2',
         'rounded-md',
         'focus:bg-gray-100',
-
         isValid ? 'border-none' : 'invalid',
         isPassword ? (passwordMatch ? 'border-none' : 'password-invalid') : '',
       ]"

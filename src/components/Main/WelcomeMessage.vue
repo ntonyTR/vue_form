@@ -1,13 +1,15 @@
 <template>
   <div>
-    <p v-html="message" class="text-white text-lg px-4 md:text-3xl md:px-20 pt-10"></p>
+    <p
+      v-html="message"
+      class="text-white text-lg px-4 md:text-3xl md:px-20 pt-10"
+    ></p>
   </div>
 </template>
 
 <script>
-
-export default ({
-  name: 'WelcomeMessage',
+export default {
+  name: "WelcomeMessage",
   data() {
     return {
       message: `
@@ -18,8 +20,8 @@ export default ({
         <b>Sign up now to get started.</b>
         <br />
         You <em>know</em> you want to.
-      `
-    }
-  }
-})
+      `,
+    };
+  },
+};
 </script>

@@ -13,8 +13,7 @@ import FooterComponent from "./FooterComponent.vue";
 export default {
   name: "BackgroundContainer",
   data() {
-    return {
-    };
+    return {};
   },
   components: {
     HeaderComponent,
