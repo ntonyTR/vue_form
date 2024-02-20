@@ -1,15 +1,7 @@
 <template>
-  <div class="flex flex-col mt-2">
-    <label class="flex justify-between" :for="labelFor">
+  <div class="flex flex-col">
+    <label :for="labelFor">
       {{ labelText }}
-      <span
-        v-if="!isValid || (isPassword && !passwordMatch)"
-        :class="[
-          !isValid ? 'invalid' : '',
-          isPassword && !passwordMatch ? 'password-invalid' : '',
-        ]"
-      >
-      </span>
     </label>
     <input
       :class="[
@@ -17,9 +9,8 @@
         'p-2',
         'rounded-md',
         'focus:bg-gray-100',
-
-        isValid ? 'border-none' : 'invalid',
-        isPassword ? (passwordMatch ? 'border-none' : 'password-invalid') : '',
+        'border-2',
+        passwordMatch ? 'border-none' : 'password-invalid',
       ]"
       @input="$emit('input', $event.target.value)"
       required
@@ -29,6 +20,8 @@
       :placeholder="inputPlaceholder"
       :maxlength="inputMaxLength"
     />
+    <span v-if="isValid === false" :class="isValid === false ? 'invalid' : ''">
+    </span>
   </div>
 </template>
 
@@ -46,11 +39,6 @@ export default {
     isValid: Boolean,
     passwordMatch: Boolean,
   },
-  computed: {
-    isPassword() {
-      return this.inputType === "password";
-    },
-  },
   components: {},
   data() {
     return {};
@@ -60,24 +48,22 @@ export default {
 </script>
 
 <style scoped>
+input.valid {
+  border: 2px solid greenyellow;
+}
+
 input.invalid {
+  border: 2px solid red;
   background-color: lightyellow;
 }
 
-span {
-  font-size: 0.75rem;
-  color: yellow;
-}
-
-span.invalid::before {
-  content: "⚠️Field invalid⚠️";
-}
-
-span.password-invalid::before {
-  content: "⚠️Passwords don't match⚠️ ";
+.invalid::before {
+  content: "⚠️ Field invalid!";
+  color: red;
+  font-size: 0.8rem;
 }
 
 input.password-invalid {
-  background-color: lightcoral;
+  border: 2px solid yellow;
 }
 </style>
