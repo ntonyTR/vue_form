@@ -5,8 +5,8 @@
       <span
         v-if="!isValid || (isPassword && !passwordMatch)"
         :class="[
-          !isValid ? 'invalid' : '',
-          isPassword && !passwordMatch ? 'password-invalid' : '',
+          !isValid && touched ? 'invalid' : '',
+          isPassword && !passwordMatch && touched ? 'password-invalid' : '',
         ]"
       >
       </span>
@@ -17,10 +17,12 @@
         'p-2',
         'rounded-md',
         'focus:bg-gray-100',
-        isValid ? 'border-none' : 'invalid',
-        isPassword ? (passwordMatch ? 'border-none' : 'password-invalid') : '',
+        (!isValid && touched) ? 'invalid' : 'border-none',
+        (isPassword && touched) ? (passwordMatch ? 'border-none' : 'password-invalid') : '',
+
       ]"
       @input="$emit('input', $event.target.value)"
+      @keyup="switchTouched"
       required
       :type="inputType"
       :id="inputId"
@@ -34,6 +36,11 @@
 <script>
 export default {
   name: "FormField",
+  data() {
+    return {
+      touched: false,
+    };
+  },
   props: {
     labelFor: String,
     labelText: String,
@@ -44,17 +51,18 @@ export default {
     inputMaxLength: Number,
     isValid: Boolean,
     passwordMatch: Boolean,
+    inputPattern: RegExp,
   },
   computed: {
     isPassword() {
       return this.inputType === "password";
     },
   },
-  components: {},
-  data() {
-    return {};
+  methods: {
+    switchTouched() {
+      this.touched = true;
+    },
   },
-  methods: {},
 };
 </script>
 

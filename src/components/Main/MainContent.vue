@@ -7,7 +7,7 @@
 
 <script>
 import WelcomeMessage from "./WelcomeMessage.vue";
-import SignInForm from "./SignInForm.vue";
+import SignInForm from "./Form/SignInForm.vue";
 
 export default {
   name: "MainContent",

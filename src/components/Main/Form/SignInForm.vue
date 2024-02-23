@@ -2,8 +2,9 @@
   <div class="mt-8 bg-zinc-700 px-20 py-5 text-white">
     <h3 class="font-mono text-4xl">Sign Up</h3>
     <form
-      @submit.prevent="validateForm"
-      novalidate="true"
+      @submit.prevent="submitForm"
+      @input="validateField"
+      novalidate
       action="https://httpbin.org/post"
       method="post"
       id="sign-up-form"
@@ -12,26 +13,30 @@
       <form-field
         :isValid="firstName.isValid"
         v-model="firstName.value"
+        :inputPattern="firstName.inputPattern"
+        :touch="firstName.touched"
         labelFor="first-name"
         labelText="FIRST NAME"
         inputType="text"
-        inputId="first-name"
+        inputId="firstName"
         inputName="first-name"
         inputPlaceholder="John"
       />
       <form-field
         :isValid="lastName.isValid"
         v-model="lastName.value"
+        :inputPattern="lastName.inputPattern"
         labelFor="last-name"
         labelText="LAST NAME"
         inputType="text"
-        inputId="last-name"
+        inputId="lastName"
         inputName="last-name"
         inputPlaceholder="Doe"
       />
       <form-field
         :isValid="email.isValid"
         v-model="email.value"
+        :inputPattern="email.inputPattern"
         labelFor="email"
         labelText="EMAIL"
         inputType="email"
@@ -42,6 +47,7 @@
       <form-field
         :isValid="phone.isValid"
         v-model="phone.value"
+        :inputPattern="phone.inputPattern"
         labelFor="phone"
         labelText="PHONE"
         inputType="tel"
@@ -53,6 +59,7 @@
       <form-field
         :isValid="password.isValid"
         v-model="password.value"
+        :inputPattern="password.inputPattern"
         labelFor="password"
         labelText="PASSWORD"
         inputType="password"
@@ -64,10 +71,11 @@
       <form-field
         :isValid="passwordConfirmation.isValid"
         v-model="passwordConfirmation.value"
+        :inputPattern="passwordConfirmation.inputPattern"
         labelFor="password-confirmation"
         labelText="CONFIRM PASSWORD"
         inputType="password"
-        inputId="password-confirmation"
+        inputId="passwordConfirmation"
         inputName="password-confirmation"
         :inputMaxLength="8"
         :passwordMatch="passwordMatch"
@@ -97,47 +105,47 @@ export default {
     return {
       firstName: {
         value: "",
-        isValid: true,
+        isValid: false,
+        touched: false,
         inputPattern: /^[a-zA-Z]+$/,
       },
       lastName: {
         value: "",
-        isValid: true,
+        isValid: false,
         inputPattern: /^[a-zA-Z]+$/,
       },
       email: {
         value: "",
-        isValid: true,
+        isValid: false,
         inputPattern: /^([\w.-]+)@([\w-]+)((\.(\w){2,3})+)$/i,
       },
       phone: {
         value: "",
-        isValid: true,
+        isValid: false,
         inputPattern: /^[0-9]{10}$/i,
       },
       password: {
         value: "",
-        isValid: true,
+        isValid: false,
         inputPattern: /^[a-zA-Z0-9]{8}$/i,
       },
       passwordConfirmation: {
         value: "",
-        isValid: true,
+        isValid: false,
         inputPattern: /^[a-zA-Z0-9]{8}$/i,
       },
       passwordMatch: true,
     };
   },
   methods: {
-    validateForm() {
-      Object.keys(this.$data).forEach((key) => {
-        if (typeof this[key] === "object" && this[key] !== null) {
-          this[key].isValid = this.checkValidity(
-            this[key].value,
-            this[key].inputPattern
-          );
-        }
-      });
+    validateField(event) {
+      let element = this.$data[event.target.id];
+      if (typeof element === "object" && element !== null) {
+        element.isValid = this.checkValidity(
+          element.value,
+          element.inputPattern
+        );
+      }
       this.validatePasswords();
     },
     checkValidity(value, pattern) {
@@ -154,6 +162,37 @@ export default {
       this.passwordMatch =
         this.password.value === this.passwordConfirmation.value;
     },
+    submitForm(){
+      if(this.isFormValid()){
+        document.getElementById('sign-up-form').submit();
+      } else {
+        alert('Please make sure all fields are valid.');
+      }
+    },
+    isFormValid(){
+      
+
+      const fields = [
+        this.firstName,
+        this.lastName,
+        this.email,
+        this.phone,
+        this.password,
+        this.passwordConfirmation
+      ];
+
+      for (let field of fields) {
+        if (!field.isValid) {
+          return false;
+        }
+      }
+
+      if(!this.passwordMatch){
+        return false;
+      }
+
+      return true;
+    }
   },
 };
 </script>
