@@ -3,8 +3,8 @@
     <label class="flex justify-between" :for="labelFor">
       {{ labelText }}
       <span
-        v-if="!isValid || (isPassword && !passwordMatch)"
         :class="[
+          isValid ? 'valid' : '',
           !isValid && touched ? 'invalid' : '',
           isPassword && !passwordMatch && touched ? 'password-invalid' : '',
         ]"
@@ -19,6 +19,7 @@
         'focus:bg-gray-100',
         (!isValid && touched) ? 'invalid' : 'border-none',
         (isPassword && touched) ? (passwordMatch ? 'border-none' : 'password-invalid') : '',
+        isValid ? 'valid' : 'border-none', 
 
       ]"
       @input="$emit('input', $event.target.value)"
@@ -67,24 +68,33 @@ export default {
 </script>
 
 <style scoped>
+input.valid{
+  background-color: lightgreen;
+}
+
 input.invalid {
   background-color: lightyellow;
 }
 
+input.password-invalid {
+  background-color: lightcoral;
+}
+
 span {
   font-size: 0.75rem;
-  color: yellow;
+}
+
+span.valid::before {
+  content: "✅";
 }
 
 span.invalid::before {
   content: "⚠️Field invalid⚠️";
+  color: yellow;
 }
 
 span.password-invalid::before {
-  content: "⚠️Passwords don't match⚠️ ";
-}
-
-input.password-invalid {
-  background-color: lightcoral;
+  content: "❗Passwords don't match❗ ";
+  color: lightcoral;
 }
 </style>
