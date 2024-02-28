@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-8 bg-zinc-700 px-20 py-5 text-white">
+  <div class="mt-8 bg-zinc-700 px-20 py-5 text-white flex flex-col content-center">
     <h3 class="font-mono text-4xl">Sign Up</h3>
     <form
       @submit.prevent="submitForm"
@@ -8,7 +8,7 @@
       action="https://httpbin.org/post"
       method="post"
       id="sign-up-form"
-      class="grid grid-cols-1 gap-1 md:gap-x-10 md:grid-cols-2"
+      class="w-full self-center grid grid-cols-1 gap-1 md:gap-x-10 md:grid-cols-2"
     >
       <form-field
         :isValid="firstName.isValid"
@@ -82,14 +82,17 @@
       />
     </form>
 
-    <button
-      class="bg-rose-600 text-white px-2 py-1 mt-2 rounded-md shadow-md hover:shadow-pink-600"
+    <div class="self-center mt-6">
+      <button
+      class="bg-rose-600 text-white px-2 py-1 rounded-md shadow-md hover:shadow-pink-600 "
       type="submit"
       form="sign-up-form"
     >
       Create Account
     </button>
-    <p>Already have an account? <a href="#">Log in</a></p>
+    <p class="text-sm mt-1">Already a member? <a href="#" class="text-pink-600">Log in</a>.</p>
+
+    </div>
   </div>
 </template>
 
