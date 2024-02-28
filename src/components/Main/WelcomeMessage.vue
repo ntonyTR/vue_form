@@ -13,13 +13,14 @@ export default {
   data() {
     return {
       message: `
-        This is not a real online service! You know you need something like this in your life to help you realize your
-        deepest dreams.
+        Welcome to our online platform! We're here to turn your wildest aspirations into concrete achievements.
         <br />
         <br />
-        <b>Sign up now to get started.</b>
-        <br />
-        You <em>know</em> you want to.
+        Join our digital community and embark on a journey of growth and fulfillment.
+        <b>
+          <br />
+          <br />
+          Sign up <em>now</em> to get started.</b>
       `,
     };
   },
