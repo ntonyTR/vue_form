@@ -6,6 +6,11 @@ module.exports = {
     extend: {
       backgroundImage: {
         'spaceBackground': "url('/src/assets/img/background.jpg')"
+      }, 
+      colors:{
+        'valid': '#A1E5AB',
+        'invalid': '#FFDE7A',
+        'error': '#C52233',
       }
     },
   },

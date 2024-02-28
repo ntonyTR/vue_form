@@ -3,23 +3,25 @@
     <label class="flex justify-between" :for="labelFor">
       {{ labelText }}
       <span
+        v-if="touched"
         :class="[
-          isValid ? 'valid' : '',
-          !isValid && touched ? 'invalid' : '',
-          isPassword && !passwordMatch && touched ? 'password-invalid' : '',
+          'text-xs',
+          isValid ? 'text-valid' : '',
+          !isValid && touched ?  'text-invalid' : '',
+          isPassword && !passwordMatch && touched ? 'text-error' : '',
         ]"
       >
+      {{ changeMessage() }}
       </span>
     </label>
     <input
       :class="[
         'text-black',
         'p-2',
-        'rounded-md',
-        'focus:bg-gray-100',
-        (!isValid && touched) ? 'invalid' : 'border-none',
-        (isPassword && touched) ? (passwordMatch ? 'border-none' : 'password-invalid') : '',
-        isValid ? 'valid' : 'border-none', 
+        'rounded-md',,
+        (!isValid && touched) ? 'bg-invalid' : '',
+        (isPassword && touched) ? (passwordMatch ? '' : 'bg-error') : '',
+        isValid ? 'bg-valid' : '', 
 
       ]"
       @input="$emit('input', $event.target.value)"
@@ -63,38 +65,15 @@ export default {
     switchTouched() {
       this.touched = true;
     },
+    changeMessage(){
+      if(this.isPassword && !this.passwordMatch ){
+        return "❗ Passwords don't match."
+      } else if(!this.isValid){
+        return "⚠️ Invalid value. Try again.";
+      } else {
+        return "✅ Correct. ";
+      }
+    }
   },
 };
 </script>
-
-<style scoped>
-input.valid{
-  background-color: lightgreen;
-}
-
-input.invalid {
-  background-color: lightyellow;
-}
-
-input.password-invalid {
-  background-color: lightcoral;
-}
-
-span {
-  font-size: 0.75rem;
-}
-
-span.valid::before {
-  content: "✅";
-}
-
-span.invalid::before {
-  content: "⚠️Field invalid⚠️";
-  color: yellow;
-}
-
-span.password-invalid::before {
-  content: "❗Passwords don't match❗ ";
-  color: lightcoral;
-}
-</style>
